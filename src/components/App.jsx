@@ -24,10 +24,14 @@ export class App extends Component {
     const arrName = [];
 
     this.state.contacts.forEach(contact => {
-      const name = contact.name.toLowerCase()
+      const name = contact.name.toLowerCase();
       if (name.includes(this.state.filter)) {
         arrName.push(contact);
       }
+
+      // if (arrName.length === 0) {
+
+      // }
     });
     return (
       <section>
@@ -60,13 +64,6 @@ export class App extends Component {
 
         <div>
           <h2>Contacts</h2>
-          <ul>
-            {arrName.map(contact => (
-              <li key={contact.id}>
-                {contact.name}: {contact.number}{' '}
-              </li>
-            ))}
-          </ul>
           <h3>Find contacts by name</h3>
           <input
             type="text"
@@ -78,6 +75,19 @@ export class App extends Component {
             onChange={this.handlerSearch}
             // value={this.state.name}
           />
+
+          {arrName.length === 0 ? (
+            <p>No contact</p>
+          ) : (
+            <ul>
+              {arrName.map(contact => (
+                <li key={contact.id}>
+                  {contact.name}: {contact.number}{' '}
+                </li>
+              ))}
+            </ul>
+          )}
+          
         </div>
       </section>
     );
