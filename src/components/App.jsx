@@ -29,8 +29,6 @@ export class App extends Component {
         arrName.push(contact);
       }
     });
-    // console.log(arrName);
-
     return (
       <section>
         <h1>Phonbook</h1>
