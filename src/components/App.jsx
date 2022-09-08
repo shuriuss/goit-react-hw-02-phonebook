@@ -20,9 +20,14 @@ export class App extends Component {
   };
 
   handleSubmit = newContact => {
+    if (this.state.contacts.some(el => el.name === newContact.name)) {
+      alert(`${newContact.name} is already in contacts`);
+      return;
+    }
     this.setState(prevstate => ({
       contacts: prevstate.contacts.concat(newContact),
     }));
+    console.log(this.state.contacts);
   };
 
   render() {
@@ -44,7 +49,6 @@ export class App extends Component {
           <h2>Contacts</h2>
           <Filter value={this.state.filter} onChange={this.handlerSearch} />
           <ContactList arrName={arrName} />
-         
         </div>
       </section>
     );
