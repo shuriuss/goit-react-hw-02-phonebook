@@ -15,11 +15,6 @@ export class App extends Component {
     number: '',
   };
 
-  handleName = this.handleName.bind(this);
-  handleTel = this.handleTel.bind(this);
-  handleSubmit = this.handleSubmit.bind(this);
-  handlerSearch = this.handlerSearch.bind(this);
-
   render() {
     const arrName = [];
 
@@ -93,19 +88,19 @@ export class App extends Component {
     );
   }
 
-  handleName(e) {
+  handleName =(e)=> {
     this.setState({ name: e.target.value });
   }
 
-  handleTel(e) {
+  handleTel=(e)=> {
     this.setState({ number: e.target.value });
   }
 
-  handlerSearch(e) {
+  handlerSearch=(e)=> {
     this.setState({ filter: e.target.value.toLowerCase() });
   }
 
-  handleSubmit(e) {
+  handleSubmit=(e)=> {
     e.preventDefault();
     if (this.state.name.length === 0) {
       return;
