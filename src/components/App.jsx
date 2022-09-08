@@ -1,6 +1,6 @@
 /* eslint-disable no-dupe-class-members */
 import React, { Component } from 'react';
-// import Form from './Form';
+import Form from './Form';
 
 export class App extends Component {
   state = {
@@ -11,10 +11,13 @@ export class App extends Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
-    name: '',
-    number: '',
   };
 
+  handleSubmit = newContact => {
+    this.setState(prevstate => ({
+      contacts: prevstate.contacts.concat(newContact),
+    }));
+  };
   render() {
     const arrName = [];
 
@@ -23,15 +26,12 @@ export class App extends Component {
       if (name.includes(this.state.filter)) {
         arrName.push(contact);
       }
-
-      // if (arrName.length === 0) {
-
-      // }
     });
     return (
       <section>
         <h1>Phonbook</h1>
-        <h2>Name</h2>
+        <Form handleSubmit={this.handleSubmit} />
+        {/* <h2>Name</h2>
         <form onSubmit={this.handleSubmit}>
           <input
             type="text"
@@ -55,7 +55,7 @@ export class App extends Component {
             value={this.state.number}
           />
           <button type="submit">Add contact</button>
-        </form>
+        </form> */}
 
         <div>
           <h2>Contacts</h2>
@@ -82,43 +82,42 @@ export class App extends Component {
               ))}
             </ul>
           )}
-          
         </div>
       </section>
     );
   }
 
-  handleName =(e)=> {
-    this.setState({ name: e.target.value });
-  }
+  // handleName =(e)=> {
+  //   this.setState({ name: e.target.value });
+  // }
 
-  handleTel=(e)=> {
-    this.setState({ number: e.target.value });
-  }
+  // handleTel=(e)=> {
+  //   this.setState({ number: e.target.value });
+  // }
 
-  handlerSearch=(e)=> {
+  handlerSearch = e => {
     this.setState({ filter: e.target.value.toLowerCase() });
-  }
+  };
 
-  handleSubmit=(e)=> {
-    e.preventDefault();
-    if (this.state.name.length === 0) {
-      return;
-    }
-    if (this.state.number.length === 0) {
-      return;
-    }
+  // handleSubmit=(e)=> {
+  //   e.preventDefault();
+  //   if (this.state.name.length === 0) {
+  //     return;
+  //   }
+  //   if (this.state.number.length === 0) {
+  //     return;
+  //   }
 
-    const newItem = {
-      id: Date.now(),
-      name: this.state.name,
-      number: this.state.number,
-    };
+  //   const newItem = {
+  //     id: Date.now(),
+  //     name: this.state.name,
+  //     number: this.state.number,
+  //   };
 
-    this.setState(state => ({
-      contacts: state.contacts.concat(newItem),
-      name: '',
-      number: '',
-    }));
-  }
+  //   this.setState(state => ({
+  //     contacts: state.contacts.concat(newItem),
+  //     name: '',
+  //     number: '',
+  //   }));
+  // }
 }
