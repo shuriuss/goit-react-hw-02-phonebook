@@ -30,15 +30,22 @@ export class App extends Component {
     console.log(this.state.contacts);
   };
 
-  render() {
-    const arrName = [];
+  handleDelete = id => {
+    const { contacts } = this.state;
+    const updatedContacts = contacts.filter(contact => contact.id !== id);
+    this.setState({ contacts: updatedContacts });
+  };
 
-    this.state.contacts.forEach(contact => {
-      const name = contact.name.toLowerCase();
-      if (name.includes(this.state.filter)) {
-        arrName.push(contact);
-      }
-    });
+  getFilteredContacts = () => {
+    const { filter, contacts } = this.state;
+    const normalizedContacts = filter.toLocaleLowerCase();
+    return contacts.filter(({ name }) =>
+      name.toLocaleLowerCase().includes(normalizedContacts)
+    );
+  };
+
+  render() {
+    const filteredContacts = this.getFilteredContacts();
 
     return (
       <section>
@@ -48,39 +55,12 @@ export class App extends Component {
         <div>
           <h2>Contacts</h2>
           <Filter value={this.state.filter} onChange={this.handlerSearch} />
-          <ContactList arrName={arrName} />
+          <ContactList
+            contact={filteredContacts}
+            handleDelete={this.handleDelete}
+          />
         </div>
       </section>
     );
   }
-
-  // handleName =(e)=> {
-  //   this.setState({ name: e.target.value });
-  // }
-
-  // handleTel=(e)=> {
-  //   this.setState({ number: e.target.value });
-  // }
-
-  // handleSubmit=(e)=> {
-  //   e.preventDefault();
-  //   if (this.state.name.length === 0) {
-  //     return;
-  //   }
-  //   if (this.state.number.length === 0) {
-  //     return;
-  //   }
-
-  //   const newItem = {
-  //     id: Date.now(),
-  //     name: this.state.name,
-  //     number: this.state.number,
-  //   };
-
-  //   this.setState(state => ({
-  //     contacts: state.contacts.concat(newItem),
-  //     name: '',
-  //     number: '',
-  //   }));
-  // }
 }

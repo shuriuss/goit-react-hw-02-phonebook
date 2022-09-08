@@ -3,24 +3,29 @@ import PropTypes from 'prop-types';
 
 export class ContactList extends Component {
   static propTypes = {
-    arrName: PropTypes.arrayOf(PropTypes.object).isRequired,
+    contact: PropTypes.arrayOf(PropTypes.object).isRequired,
   };
 
   render() {
-    const { arrName } = this.props;
+    console.log(this.props);
+    const { contact, handleDelete } = this.props;
     return (
       <>
-        {arrName.length === 0 ? (
+        {contact.length === 0 ? (
           <p>No contact</p>
         ) : (
-          <ul>
-            {arrName.map(contact => (
-              <li key={contact.id}>
-                {contact.name}: {contact.number}{' '}
-              </li>
-            ))}
-          </ul>
-          
+          <>
+            <ul>
+              {contact.map(({id, name, number}) => (
+                <li key={id}>
+                  {name}: {number}
+                  <button type="button" onClick={() => handleDelete(id)}>
+                    Delete
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </>
         )}
       </>
     );

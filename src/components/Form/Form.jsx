@@ -30,6 +30,11 @@ export class Form extends Component {
       number: this.state.number,
     };
     this.props.handleSubmit(newItem);
+
+    this.setState({
+      name: '',
+      number: '',
+    });
   };
 
   render() {
