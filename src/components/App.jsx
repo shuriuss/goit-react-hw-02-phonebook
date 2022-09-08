@@ -1,6 +1,8 @@
 /* eslint-disable no-dupe-class-members */
 import React, { Component } from 'react';
 import Form from './Form';
+import Filter from './Filter';
+import ContactList from './ContactList';
 
 export class App extends Component {
   state = {
@@ -13,11 +15,16 @@ export class App extends Component {
     filter: '',
   };
 
+  handlerSearch = e => {
+    this.setState({ filter: e.target.value.toLowerCase() });
+  };
+
   handleSubmit = newContact => {
     this.setState(prevstate => ({
       contacts: prevstate.contacts.concat(newContact),
     }));
   };
+
   render() {
     const arrName = [];
 
@@ -27,61 +34,17 @@ export class App extends Component {
         arrName.push(contact);
       }
     });
+
     return (
       <section>
         <h1>Phonbook</h1>
         <Form handleSubmit={this.handleSubmit} />
-        {/* <h2>Name</h2>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            type="text"
-            name="name"
-            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-            required
-            id="newName"
-            onChange={this.handleName}
-            value={this.state.name}
-          />
-          <h2>Number</h2>
-          <input
-            type="tel"
-            name="number"
-            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-            required
-            id="newTel"
-            onChange={this.handleTel}
-            value={this.state.number}
-          />
-          <button type="submit">Add contact</button>
-        </form> */}
 
         <div>
           <h2>Contacts</h2>
-          <h3>Find contacts by name</h3>
-          <input
-            type="text"
-            name="nameSearch"
-            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            // title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-            required
-            id="nameSearch"
-            onChange={this.handlerSearch}
-            // value={this.state.name}
-          />
-
-          {arrName.length === 0 ? (
-            <p>No contact</p>
-          ) : (
-            <ul>
-              {arrName.map(contact => (
-                <li key={contact.id}>
-                  {contact.name}: {contact.number}{' '}
-                </li>
-              ))}
-            </ul>
-          )}
+          <Filter value={this.state.filter} onChange={this.handlerSearch} />
+          <ContactList arrName={arrName} />
+         
         </div>
       </section>
     );
@@ -94,10 +57,6 @@ export class App extends Component {
   // handleTel=(e)=> {
   //   this.setState({ number: e.target.value });
   // }
-
-  handlerSearch = e => {
-    this.setState({ filter: e.target.value.toLowerCase() });
-  };
 
   // handleSubmit=(e)=> {
   //   e.preventDefault();
