@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 export class ContactList extends Component {
-  render() {
+  static propTypes = {
+    arrName: PropTypes.arrayOf(PropTypes.object).isRequired,
+  };
 
-    const {arrName} = this.props
-       return (
+  render() {
+    const { arrName } = this.props;
+    return (
       <>
         {arrName.length === 0 ? (
           <p>No contact</p>
@@ -17,13 +20,11 @@ export class ContactList extends Component {
               </li>
             ))}
           </ul>
+          
         )}
       </>
     );
   }
 }
 
-
-
-
-export default ContactList
+export default ContactList;
