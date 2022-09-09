@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import s from './ContactForm.module.scss'
+import s from './Form.module.css'
 
 export class Form extends Component {
   state = {
@@ -7,13 +7,12 @@ export class Form extends Component {
     number: '',
   };
 
-  handleName = e => {
-    this.setState({ name: e.target.value });
-  };
 
-  handleTel = e => {
-    this.setState({ number: e.target.value });
-  };
+  handleChange =e => {
+    const { name, value } = e.currentTarget
+       this.setState({ [name]:value})
+  }
+
 
   handleSubmit = e => {
     e.preventDefault();
@@ -29,7 +28,7 @@ export class Form extends Component {
       name: this.state.name,
       number: this.state.number,
     };
-    this.props.handleSubmit(newItem);
+    this.props.onSubmit(newItem);
 
     this.setState({
       name: '',
@@ -40,8 +39,8 @@ export class Form extends Component {
   render() {
     return (
       <>
-        <h2>Name</h2>
-        <form onSubmit={this.handleSubmit}>
+        <h2 className={s.title}>Name</h2>
+        <form onSubmit={this.handleSubmit} className={s.form}>
           <input
             type="text"
             name="name"
@@ -49,10 +48,10 @@ export class Form extends Component {
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
             required
             id="newName"
-            onChange={this.handleName}
+            onChange={this.handleChange}
             value={this.state.name}
           />
-          <h2>Number</h2>
+          <h2 className={s.title}>Number</h2>
           <input
             type="tel"
             name="number"
@@ -60,10 +59,10 @@ export class Form extends Component {
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
             id="newTel"
-            onChange={this.handleTel}
+            onChange={this.handleChange}
             value={this.state.number}
           />
-          <button type="submit">Add contact</button>
+          <button type="submit" className={s.button}>Add contact</button>
         </form>
       </>
     );

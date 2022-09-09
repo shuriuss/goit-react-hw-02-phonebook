@@ -3,14 +3,16 @@ import React, { Component } from 'react';
 import Form from './Form';
 import Filter from './Filter';
 import ContactList from './ContactList';
+import s from './App.module.css'
+
 
 export class App extends Component {
   state = {
     contacts: [
-      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+      { id: 1, name: 'Rosie Simpson', number: '459-12-56' },
+      { id: 2, name: 'Hermione Kline', number: '443-89-12' },
+      { id: 3, name: 'Eden Clements', number: '645-17-79' },
+      { id: 4, name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
   };
@@ -48,18 +50,18 @@ export class App extends Component {
     const filteredContacts = this.getFilteredContacts();
 
     return (
-      <section>
+      <section className={s.section}>
         <h1>Phonbook</h1>
-        <Form handleSubmit={this.handleSubmit} />
+        <Form onSubmit={this.handleSubmit} />
 
-        <div>
+        
           <h2>Contacts</h2>
           <Filter value={this.state.filter} onChange={this.handlerSearch} />
           <ContactList
-            contact={filteredContacts}
-            handleDelete={this.handleDelete}
+            contacts={filteredContacts}
+            onDelete={this.handleDelete}
           />
-        </div>
+        
       </section>
     );
   }
